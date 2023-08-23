@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 		command = split_line(line);
 		if (!command)
 			continue;
+		replace_variable(command, status);
 		if (is_builtin(command[0]))
 		{
 			handle_builtin(command, argv, &status, idx, &new_env);

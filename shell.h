@@ -74,6 +74,8 @@ char **new_env);
 void _unsetenv(char **command, char **argv, int *status, int idx,
 char **new_env);
 
+void replace_variable(char **command, int status);
+
 /* ========== 10-linked_list.c ========== */
 list_dir *add_node_end(list_dir **head, const char *str);
 void free_list_dir(list_dir *head);
@@ -94,6 +96,7 @@ char *_itoa(int n);
 void reverse_string(char *str, int len);
 int is_positive_number(char *str);
 int _atoi(char *str);
+
 
 
 #endif

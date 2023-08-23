@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "08-builtins2": "c"
+        "08-builtins2": "c",
+        "09-variables_replace": "cpp"
     }
 }
