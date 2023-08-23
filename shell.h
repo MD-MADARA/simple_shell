@@ -15,8 +15,9 @@
 #define DELIM " \n\t"
 #define PROMPT "$ "
 
-/* global variable */
+/* global variables */
 extern char **environ;
+
 
 /**
  * struct list_dir - singly linked list.
@@ -82,7 +83,6 @@ char *_strcpy(char *dest, char *src);
 /* ========== 12-tools.c ========== */
 void free2Darray(char **array);
 void print_error(char *name, int idx, char *cmd);
-void print_syntax_error(char *name, int idx);
 
 /* ========== 13-tools2.c ========== */
 char *_itoa(int n);

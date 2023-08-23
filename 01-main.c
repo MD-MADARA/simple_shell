@@ -6,6 +6,7 @@
  * @argv: Arguments.
  * Return: the status of last execute.
  */
+
 int main(int argc, char **argv)
 {
 	int status = 0, idx = 0;

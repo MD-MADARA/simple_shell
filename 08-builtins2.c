@@ -11,13 +11,13 @@
 void _setenv(char **command, char **argv, int *status, int idx)
 {
 	int i;
-	char *key, *variable, *tmp, *new_var;
+	char *key, *variable, *tmp, *new_env;
 	(void) idx;
 	(void) argv;
 
 	if (!command[1] || !command[2])
 	{
-		(*status) = 0, free2Darray(command);
+		free2Darray(command), (*status) = 0;
 		return;
 	}
 	for (i = 0; environ[i]; i++)
@@ -29,26 +29,23 @@ void _setenv(char **command, char **argv, int *status, int idx)
 			variable = strtok(NULL, "\n");
 			if (_strcmp(variable, command[2]) == 0)
 			{
-				free(tmp), free2Darray(command);
-				(*status) = 0;
+				free(tmp), free2Darray(command), (*status) = 0;
 				return;
 			}
 			_strcpy(environ[i], command[1]);
 			_strcat(environ[i], "=");
 			_strcat(environ[i], command[2]);
-			free(tmp), free2Darray(command);
-			(*status) = 0;
+			free(tmp), free2Darray(command), (*status) = 0;
 			return;
 		}
 		free(tmp), tmp = NULL;
 	}
-	new_var = malloc(_strlen(command[1]) + _strlen(command[2]) + 2);
-	_strcpy(new_var, command[1]);
-	_strcat(new_var, "=");
-	_strcat(new_var, command[2]);
-	environ[i] = new_var, environ[i + 1] = NULL;
-	(*status) = 0;
-	free2Darray(command);
+	new_env = malloc(_strlen(command[1]) + _strlen(command[2]) + 2);
+	_strcpy(new_env, command[1]);
+	_strcat(new_env, "=");
+	_strcat(new_env, command[2]);
+	environ[i] = new_env, environ[i + 1] = NULL;
+	(*status) = 0, free2Darray(command);
 }
 /**
  * _unsetenv - Remove an environment variable.
