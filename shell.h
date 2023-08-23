@@ -74,24 +74,28 @@ char **new_env);
 void _unsetenv(char **command, char **argv, int *status, int idx,
 char **new_env);
 
+/* ========== 09-var_replace.c ========== */
 void replace_variable(char **command, int status);
 
-/* ========== 10-linked_list.c ========== */
+/* ========== 10-comments_handler.c ========== */
+void comments_handler(char ***command);
+
+/* ========== 14-linked_list.c ========== */
 list_dir *add_node_end(list_dir **head, const char *str);
 void free_list_dir(list_dir *head);
 
-/* ========== 11-string.c ========== */
+/* ========== 15-string.c ========== */
 int _strlen(char *s);
 char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
-/* ========== 12-tools.c ========== */
+/* ========== 16-tools.c ========== */
 void free2Darray(char **array);
 void print_error(char *name, int idx, char *cmd);
 
-/* ========== 13-tools2.c ========== */
+/* ========== 17-tools2.c ========== */
 char *_itoa(int n);
 void reverse_string(char *str, int len);
 int is_positive_number(char *str);

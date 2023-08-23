@@ -25,6 +25,7 @@ int main(int argc, char **argv)
 		}
 		idx++;
 		command = split_line(line);
+		comments_handler(&command);
 		if (!command)
 			continue;
 		replace_variable(command, status);
