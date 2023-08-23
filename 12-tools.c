@@ -40,15 +40,3 @@ void print_error(char *name, int idx, char *cmd)
 	write(STDERR_FILENO, mssg, _strlen(mssg));
 	free(index);
 }
-void print_syntax_error(char *name, int idx)
-{
-	char *index, mssg[] = ": Syntax error: \";\" unexpected\n";
-
-	index = _itoa(idx);
-
-	write(STDERR_FILENO, name, _strlen(name));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, index, _strlen(index));
-	write(STDERR_FILENO, mssg, _strlen(mssg));
-	free(index);
-}

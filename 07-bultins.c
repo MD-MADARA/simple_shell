@@ -9,7 +9,7 @@ int is_builtin(char *command)
 {
 	int i;
 	char *builtins[] = {
-		"exit", "env","setenv", "unsetenv",
+		"exit", "env", "setenv", "unsetenv",
 		NULL
 	};
 

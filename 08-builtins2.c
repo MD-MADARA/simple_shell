@@ -17,8 +17,7 @@ void _setenv(char **command, char **argv, int *status, int idx)
 
 	if (!command[1] || !command[2])
 	{
-		(*status) = 0;
-		free2Darray(command);
+		(*status) = 0, free2Darray(command);
 		return;
 	}
 	for (i = 0; environ[i]; i++)
@@ -30,17 +29,15 @@ void _setenv(char **command, char **argv, int *status, int idx)
 			variable = strtok(NULL, "\n");
 			if (_strcmp(variable, command[2]) == 0)
 			{
-				free(tmp);
+				free(tmp), free2Darray(command);
 				(*status) = 0;
-				free2Darray(command);
 				return;
 			}
 			_strcpy(environ[i], command[1]);
 			_strcat(environ[i], "=");
 			_strcat(environ[i], command[2]);
-			free(tmp);
+			free(tmp), free2Darray(command);
 			(*status) = 0;
-			free2Darray(command);
 			return;
 		}
 		free(tmp), tmp = NULL;
@@ -49,8 +46,7 @@ void _setenv(char **command, char **argv, int *status, int idx)
 	_strcpy(new_var, command[1]);
 	_strcat(new_var, "=");
 	_strcat(new_var, command[2]);
-	environ[i] = new_var;
-	environ[i + 1] = NULL;
+	environ[i] = new_var, environ[i + 1] = NULL;
 	(*status) = 0;
 	free2Darray(command);
 }
@@ -79,7 +75,7 @@ void _unsetenv(char **command, char **argv, int *status, int idx)
 			{
 				free(tmp), tmp = NULL;
 				break;
-			}	
+			}
 			free(tmp), tmp = NULL;
 		}
 		while (environ[i])

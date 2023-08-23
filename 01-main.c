@@ -30,7 +30,6 @@ int main(int argc, char **argv)
 			handle_builtin(command, argv, &status, idx);
 			continue;
 		}
-		
 		else
 		{
 			status = _execute(command, argv, idx);

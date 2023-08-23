@@ -64,6 +64,9 @@ void handle_builtin(char **command, char **argv, int *status, int idx);
 void exit_shell(char **command, char **argv, int *status, int idx);
 void print_env(char **command, char **argv, int *status, int idx);
 
+/* ========== 08-builtins2.c ========== */
+void _setenv(char **command, char **argv, int *status, int idx);
+void _unsetenv(char **command, char **argv, int *status, int idx);
 
 /* ========== 10-linked_list.c ========== */
 list_dir *add_node_end(list_dir **head, const char *str);
@@ -87,9 +90,5 @@ void reverse_string(char *str, int len);
 int is_positive_number(char *str);
 int _atoi(char *str);
 
-char ***separator(char **command, char **argv, int *status, int idx);
-
-void _setenv(char **command, char **argv, int *status, int idx);
-void _unsetenv(char **command, char **argv, int *status, int idx);
 
 #endif
