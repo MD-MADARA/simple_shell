@@ -10,7 +10,7 @@
 int main(int argc, char **argv)
 {
 	int status = 0, idx = 0;
-	char *line = NULL, **command = NULL;
+	char *line = NULL, **command = NULL, *new_env = NULL;
 	(void) argc;
 
 	while (1)
@@ -20,6 +20,7 @@ int main(int argc, char **argv)
 		{
 			if (isatty(STDIN_FILENO))
 				write(STDOUT_FILENO, "\n", 1);
+			free(new_env);
 			return (status);
 		}
 		idx++;
@@ -28,7 +29,7 @@ int main(int argc, char **argv)
 			continue;
 		if (is_builtin(command[0]))
 		{
-			handle_builtin(command, argv, &status, idx);
+			handle_builtin(command, argv, &status, idx, &new_env);
 			continue;
 		}
 		else

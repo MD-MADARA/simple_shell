@@ -6,12 +6,14 @@
  * @argv: arguments.
  * @status: exit status.
  * @idx: index of the command.
+ * @new_env: new_environment variable.
  * Return: (void)
 */
-void _setenv(char **command, char **argv, int *status, int idx)
+void _setenv(char **command, char **argv, int *status, int idx,
+char **new_env)
 {
 	int i;
-	char *key, *variable, *tmp, *new_env;
+	char *key, *variable, *tmp, *new;
 	(void) idx;
 	(void) argv;
 
@@ -40,11 +42,12 @@ void _setenv(char **command, char **argv, int *status, int idx)
 		}
 		free(tmp), tmp = NULL;
 	}
-	new_env = malloc(_strlen(command[1]) + _strlen(command[2]) + 2);
-	_strcpy(new_env, command[1]);
-	_strcat(new_env, "=");
-	_strcat(new_env, command[2]);
-	environ[i] = new_env, environ[i + 1] = NULL;
+	new = malloc(_strlen(command[1]) + _strlen(command[2]) + 2);
+	_strcpy(new, command[1]);
+	_strcat(new, "=");
+	_strcat(new, command[2]);
+	environ[i] = new, environ[i + 1] = NULL;
+	(*new_env) = new;
 	(*status) = 0, free2Darray(command);
 }
 /**
@@ -53,14 +56,17 @@ void _setenv(char **command, char **argv, int *status, int idx)
  * @argv: arguments.
  * @status: exit status.
  * @idx: index of the command.
+ * @new_env: new_environment variable.
  * Return: (void)
 */
-void _unsetenv(char **command, char **argv, int *status, int idx)
+void _unsetenv(char **command, char **argv, int *status, int idx,
+char **new_env)
 {
 	int i;
 	char *tmp, *key;
 	(void) idx;
 	(void) argv;
+	(void) new_env;
 
 	if (command[1])
 	{

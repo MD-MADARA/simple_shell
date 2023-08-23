@@ -27,9 +27,11 @@ int is_builtin(char *command)
  * @argv: arguments.
  * @status: exit status.
  * @idx: index of the command.
+ * @new_env: new_environment variable.
  * Return: 1 if the command is builtin otherwise 0.
 */
-void handle_builtin(char **command, char **argv, int *status, int idx)
+void handle_builtin(char **command, char **argv, int *status, int idx,
+char **new_env)
 {
 	int i;
 	builtins B[] = {
@@ -44,7 +46,7 @@ void handle_builtin(char **command, char **argv, int *status, int idx)
 	{
 		if (_strcmp(B[i].builtin, command[0]) == 0)
 		{
-			B[i].f(command, argv, status, idx);
+			B[i].f(command, argv, status, idx, new_env);
 			break;
 		}
 	}
@@ -57,9 +59,11 @@ void handle_builtin(char **command, char **argv, int *status, int idx)
  * @argv: arguments.
  * @status: exit status.
  * @idx: index of the command.
+ * @new_env: new_environment variable.
  * Return: (void)
 */
-void exit_shell(char **command, char **argv, int *status, int idx)
+void exit_shell(char **command, char **argv, int *status, int idx,
+char **new_env)
 {
 	int exit_status = (*status);
 	char *index, mssg[] = ": exit: Illegal number: ";
@@ -75,15 +79,14 @@ void exit_shell(char **command, char **argv, int *status, int idx)
 			write(STDERR_FILENO, mssg, _strlen(mssg));
 			write(STDERR_FILENO, command[1], _strlen(command[1]));
 			write(STDERR_FILENO, "\n", 1);
-			free(index);
-			free2Darray(command);
+			free(index), free2Darray(command), free((*new_env));
 			(*status) = 2;
 			return;
 		}
 		else
 			exit_status = _atoi(command[1]);
 	}
-	free2Darray(command);
+	free2Darray(command), free((*new_env));
 	exit(exit_status);
 }
 
@@ -93,13 +96,16 @@ void exit_shell(char **command, char **argv, int *status, int idx)
  * @argv: arguments.
  * @status: exit status.
  * @idx: index of the command.
+ * @new_env: new_environment variable.
  * Return: (void)
 */
-void print_env(char **command, char **argv, int *status, int idx)
+void print_env(char **command, char **argv, int *status, int idx,
+char **new_env)
 {
 	int i;
 	(void) argv;
 	(void) idx;
+	(void) new_env;
 
 	for (i = 0; environ[i]; i++)
 	{
