@@ -18,6 +18,7 @@
 /* global variables */
 extern char **environ;
 
+/* ======= Structures ======= */
 
 /**
  * struct list_dir - singly linked list.
@@ -42,6 +43,18 @@ typedef struct builtins
 	char *builtin;
 	void (*f)(char **, char **, int*, int, char**);
 } builtins;
+
+/**
+ * struct file_input - file_input data.
+ * @lines: file input line.
+ * @len: number of lines in the file.
+ * Description: file input datas.
+ */
+typedef struct file_input
+{
+	char *lines[1024];
+	int len;
+} file_input;
 
 /* ========== 02-getline.c ========== */
 char *_getline(void);
@@ -80,6 +93,9 @@ void replace_variable(char **command, int status);
 /* ========== 10-comments_handler.c ========== */
 void comments_handler(char ***command);
 
+/* ========== 11-file_input.c ========== */
+file_input get_file_input(char **argv);
+
 /* ========== 14-linked_list.c ========== */
 list_dir *add_node_end(list_dir **head, const char *str);
 void free_list_dir(list_dir *head);
@@ -100,7 +116,5 @@ char *_itoa(int n);
 void reverse_string(char *str, int len);
 int is_positive_number(char *str);
 int _atoi(char *str);
-
-
 
 #endif

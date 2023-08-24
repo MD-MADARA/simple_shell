@@ -9,13 +9,24 @@
 
 int main(int argc, char **argv)
 {
-	int status = 0, idx = 0;
+	int status = 0, idx = 0, loop = 1, i = 0;
 	char *line = NULL, **command = NULL, *new_env = NULL;
-	(void) argc;
+	file_input data;
 
-	while (1)
+	if (argc == 2)
 	{
-		line = _getline();
+		data = get_file_input(argv);
+		loop = data.len;
+	}
+	while (loop)
+	{
+		if (argc == 2)
+		{
+			loop--;
+			line = data.lines[i++];
+		}
+		else
+			line = _getline();
 		if (line == NULL)
 		{
 			if (isatty(STDIN_FILENO))
@@ -29,14 +40,11 @@ int main(int argc, char **argv)
 		if (!command)
 			continue;
 		replace_variable(command, status);
+
 		if (is_builtin(command[0]))
-		{
 			handle_builtin(command, argv, &status, idx, &new_env);
-			continue;
-		}
 		else
-		{
 			status = _execute(command, argv, idx);
-		}
 	}
+	return (0);
 }
