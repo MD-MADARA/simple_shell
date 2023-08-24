@@ -8,7 +8,7 @@ file_input get_file_input(char **argv)
 {
 	int fd, r, i = 0;
 	char buffer[4096], *line = NULL;
-	char mssg1[] = ": 0: cannot open ", mssg2[] = ": No such file\n";
+	char mssg[] = ": 0: Can't open ";
 	file_input data;
 
 	data.len = 0;
@@ -16,10 +16,10 @@ file_input get_file_input(char **argv)
 	if (fd == -1)
 	{
 		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-		write(STDERR_FILENO, mssg1, _strlen(mssg1));
+		write(STDERR_FILENO, mssg, _strlen(mssg));
 		write(STDERR_FILENO, argv[1], _strlen(argv[1]));
-		write(STDERR_FILENO, mssg2, _strlen(mssg2));
-		exit(2);
+		write(STDERR_FILENO, "\n", 1);
+		exit(127);
 	}
 	r = read(fd, buffer, 4095);
 	if (r <= 0)
