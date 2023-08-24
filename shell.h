@@ -86,6 +86,8 @@ void _setenv(char **command, char **argv, int *status, int idx,
 char **new_env);
 void _unsetenv(char **command, char **argv, int *status, int idx,
 char **new_env);
+void change_directory(char **command, char **argv, int *status, int idx,
+char **new_env);
 
 /* ========== 09-var_replace.c ========== */
 void replace_variable(char **command, int status);
@@ -110,6 +112,9 @@ char *_strcpy(char *dest, char *src);
 /* ========== 16-tools.c ========== */
 void free2Darray(char **array);
 void print_error(char *name, int idx, char *cmd);
+void print_cd_error(char *name, int idx, char *path);
+void set_wd_env(char *env_key, char *env_value, char **new_env);
+
 
 /* ========== 17-tools2.c ========== */
 char *_itoa(int n);

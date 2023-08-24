@@ -90,3 +90,61 @@ char **new_env)
 	(*status) = 0;
 	free2Darray(command);
 }
+
+/**
+ * change_directory - change directory to given path.
+ * @command: the builtin command.
+ * @argv: arguments.
+ * @status: exit status.
+ * @idx: index of the command.
+ * @new_env: new_environment variable.
+ * Return: (void)
+*/
+void change_directory(char **command, char **argv, int *status, int idx,
+char **new_env)
+{
+	char *HOME, *OLDPWD, current_wd[1024];
+
+	getcwd(current_wd, 1024);
+	if (!command[1])
+	{
+		HOME = _getenv("HOME");
+		if (!HOME)
+		{
+			free2Darray(command), (*status) = 0;
+			return;
+		}
+		chdir(HOME);
+		set_wd_env("OLDPWD", current_wd, new_env);
+		set_wd_env("PWD", HOME, new_env);
+		(*status) = 0, free(HOME), free2Darray(command);
+		return;
+	}
+	if (_strcmp(command[1], "-") == 0)
+	{
+		OLDPWD = _getenv("OLDPWD");
+		if (!OLDPWD)
+		{
+			write(STDOUT_FILENO, current_wd, _strlen(current_wd));
+			write(STDOUT_FILENO, "\n", 1);
+			free2Darray(command), (*status) = 0;
+			return;
+		}
+		chdir(OLDPWD);
+		write(STDOUT_FILENO, OLDPWD, _strlen(OLDPWD));
+		write(STDOUT_FILENO, "\n", 1);
+		set_wd_env("OLDPWD", current_wd, new_env);
+		set_wd_env("PWD", OLDPWD, new_env);
+		(*status) = 0, free(OLDPWD), free2Darray(command);
+		return;
+	}
+	if (chdir(command[1]) == -1)
+	{
+		print_cd_error(argv[0], idx, command[1]);
+		free2Darray(command), (*status) = 0;
+		return;
+	}
+	set_wd_env("OLDPWD", current_wd, new_env);
+	set_wd_env("PWD", command[1], new_env);
+	(*status) = 0, free2Darray(command);
+}

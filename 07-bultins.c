@@ -9,7 +9,8 @@ int is_builtin(char *command)
 {
 	int i;
 	char *builtins[] = {
-		"exit", "env", "setenv", "unsetenv",
+		"exit", "env", "setenv",
+		"unsetenv", "cd",
 		NULL
 	};
 
@@ -39,6 +40,7 @@ char **new_env)
 		{"env", print_env},
 		{"setenv", _setenv},
 		{"unsetenv", _unsetenv},
+		{"cd", change_directory},
 		{NULL, NULL}
 	};
 
