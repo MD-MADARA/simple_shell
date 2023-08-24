@@ -19,7 +19,7 @@ void free2Darray(char **array)
 	free(array), array = NULL;
 }
 /**
- * print_error - a function that prints error
+ * print_error - a function that prints command not found error.
  * if command doesn't exist.
  * @name: shell name.
  * @idx: the command index.
@@ -40,6 +40,14 @@ void print_error(char *name, int idx, char *cmd)
 	write(STDERR_FILENO, mssg, _strlen(mssg));
 	free(index);
 }
+
+/**
+ * print_cd_error - a function that prints can't cd error.
+ * @name: shell name.
+ * @idx: the command index.
+ * @path: the non existing path.
+ * Return: (void).
+*/
 void print_cd_error(char *name, int idx, char *path)
 {
 	char *index, mssg[] = ": cd: can't cd to ";
@@ -51,10 +59,17 @@ void print_cd_error(char *name, int idx, char *path)
 	write(STDERR_FILENO, mssg, _strlen(mssg));
 	write(STDERR_FILENO, path, _strlen(path));
 	write(STDERR_FILENO, "\n", 1);
-	
+
 	free(index);
 }
 
+/**
+ * set_wd_env - set environment for PWD and OLDPWD.
+ * @env_key: environment key.
+ * @env_value: environment value.
+ * @new_env: new_environment variable.
+ * Return: (void).
+*/
 void set_wd_env(char *env_key, char *env_value, char **new_env)
 {
 	int i;

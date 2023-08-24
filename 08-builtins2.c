@@ -114,13 +114,10 @@ char **new_env)
 			free2Darray(command), (*status) = 0;
 			return;
 		}
-		chdir(HOME);
-		set_wd_env("OLDPWD", current_wd, new_env);
-		set_wd_env("PWD", HOME, new_env);
+		chdir(HOME), set_wd_env("PWD", HOME, new_env);
 		(*status) = 0, free(HOME), free2Darray(command);
-		return;
 	}
-	if (_strcmp(command[1], "-") == 0)
+	else if (_strcmp(command[1], "-") == 0)
 	{
 		OLDPWD = _getenv("OLDPWD");
 		if (!OLDPWD)
@@ -128,23 +125,22 @@ char **new_env)
 			write(STDOUT_FILENO, current_wd, _strlen(current_wd));
 			write(STDOUT_FILENO, "\n", 1);
 			free2Darray(command), (*status) = 0;
-			return;
 		}
-		chdir(OLDPWD);
+		chdir(OLDPWD), set_wd_env("PWD", OLDPWD, new_env);
 		write(STDOUT_FILENO, OLDPWD, _strlen(OLDPWD));
 		write(STDOUT_FILENO, "\n", 1);
-		set_wd_env("OLDPWD", current_wd, new_env);
-		set_wd_env("PWD", OLDPWD, new_env);
 		(*status) = 0, free(OLDPWD), free2Darray(command);
-		return;
 	}
-	if (chdir(command[1]) == -1)
+	else if (chdir(command[1]) == -1)
 	{
 		print_cd_error(argv[0], idx, command[1]);
 		free2Darray(command), (*status) = 0;
 		return;
 	}
+	else
+	{
+		set_wd_env("PWD", command[1], new_env);
+		(*status) = 0, free2Darray(command);
+	}
 	set_wd_env("OLDPWD", current_wd, new_env);
-	set_wd_env("PWD", command[1], new_env);
-	(*status) = 0, free2Darray(command);
 }
