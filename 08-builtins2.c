@@ -7,17 +7,15 @@
  * @status: exit status.
  * @idx: index of the command.
  * @new_env: new_environment variable.
- * @alias: alias.
  * Return: (void)
 */
 void _setenv(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias)
+char **new_env)
 {
 	int i;
 	char *key, *variable, *tmp, *new;
 	(void) idx;
 	(void) argv;
-	(void) alias;
 
 	if (!command[1] || !command[2])
 	{
@@ -59,18 +57,16 @@ char **new_env, char **alias)
  * @status: exit status.
  * @idx: index of the command.
  * @new_env: new_environment variable.
- * @alias: alias.
  * Return: (void)
 */
 void _unsetenv(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias)
+char **new_env)
 {
 	int i;
 	char *tmp, *key;
 	(void) idx;
 	(void) argv;
 	(void) new_env;
-	(void) alias;
 
 	if (command[1])
 	{
@@ -102,14 +98,12 @@ char **new_env, char **alias)
  * @status: exit status.
  * @idx: index of the command.
  * @new_env: new_environment variable.
- * @alias: alias.
  * Return: (void)
 */
 void change_directory(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias)
+char **new_env)
 {
 	char *HOME, *OLDPWD, current_wd[1024];
-	(void) alias;
 
 	getcwd(current_wd, 1024);
 	if (!command[1])

@@ -41,7 +41,7 @@ typedef struct list_dir
 typedef struct builtins
 {
 	char *builtin;
-	void (*f)(char **, char **, int*, int, char**, char **);
+	void (*f)(char **, char **, int*, int, char**);
 } builtins;
 
 /**
@@ -75,19 +75,19 @@ char *_getpath(char *command);
 /* ========== 07-bultins.c ========== */
 int is_builtin(char *command);
 void handle_builtin(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias);
+char **new_env);
 void exit_shell(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias);
+char **new_env);
 void print_env(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias);
+char **new_env);
 
 /* ========== 08-builtins2.c ========== */
 void _setenv(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias);
+char **new_env);
 void _unsetenv(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias);
+char **new_env);
 void change_directory(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias);
+char **new_env);
 
 /* ========== 09-var_replace.c ========== */
 void replace_variable(char **command, int status);
@@ -123,6 +123,4 @@ int is_positive_number(char *str);
 int _atoi(char *str);
 
 
-void set_alias(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias);
 #endif

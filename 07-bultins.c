@@ -10,7 +10,7 @@ int is_builtin(char *command)
 	int i;
 	char *builtins[] = {
 		"exit", "env", "setenv",
-		"unsetenv", "cd", "alias",
+		"unsetenv", "cd",
 		NULL
 	};
 
@@ -29,11 +29,10 @@ int is_builtin(char *command)
  * @status: exit status.
  * @idx: index of the command.
  * @new_env: new_environment variable.
- * @alias: alias.
  * Return: 1 if the command is builtin otherwise 0.
 */
 void handle_builtin(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias)
+char **new_env)
 {
 	int i;
 	builtins B[] = {
@@ -42,7 +41,6 @@ char **new_env, char **alias)
 		{"setenv", _setenv},
 		{"unsetenv", _unsetenv},
 		{"cd", change_directory},
-		{"alias", set_alias},
 		{NULL, NULL}
 	};
 
@@ -50,7 +48,7 @@ char **new_env, char **alias)
 	{
 		if (_strcmp(B[i].builtin, command[0]) == 0)
 		{
-			B[i].f(command, argv, status, idx, new_env, alias);
+			B[i].f(command, argv, status, idx, new_env);
 			break;
 		}
 	}
@@ -64,15 +62,13 @@ char **new_env, char **alias)
  * @status: exit status.
  * @idx: index of the command.
  * @new_env: new_environment variable.
- * @alias: alias.
  * Return: (void)
 */
 void exit_shell(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias)
+char **new_env)
 {
 	int exit_status = (*status);
 	char *index, mssg[] = ": exit: Illegal number: ";
-	(void) alias;
 
 	if (command[1])
 	{
@@ -103,17 +99,15 @@ char **new_env, char **alias)
  * @status: exit status.
  * @idx: index of the command.
  * @new_env: new_environment variable.
- * @alias: alias.
  * Return: (void)
 */
 void print_env(char **command, char **argv, int *status, int idx,
-char **new_env, char **alias)
+char **new_env)
 {
 	int i;
 	(void) argv;
 	(void) idx;
 	(void) new_env;
-	(void) alias;
 
 	for (i = 0; environ[i]; i++)
 	{
