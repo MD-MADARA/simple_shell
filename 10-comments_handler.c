@@ -13,7 +13,8 @@ void comments_handler(char ***command)
 
 	for (i = 0; (*command)[i]; i++)
 	{
-		if ((*command)[i][0] == '#')
+		if ((*command)[i][0] == '#' || (*command)[i][0] == ';'
+		|| (*command)[i][0] == '|' || (*command)[i][0] == '&')
 		{
 			comment = 1;
 			break;
@@ -21,8 +22,6 @@ void comments_handler(char ***command)
 	}
 	if (comment)
 	{
-		free((*command)[i]), (*command)[i] = NULL;
-		i++;
 		while ((*command)[i])
 		{
 			free((*command)[i]), (*command)[i] = NULL;
